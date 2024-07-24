@@ -4,11 +4,14 @@ html(lang="en")
         title Update contact info
         link(rel="stylesheet", href="/css/style.css")
     body
-        a(href='/') Return to the homepage
         .form-wrapper
-            p User: #{}
-            p New food: #{}
+            a(href='/') Return to the homepage
+            p Add new food:
             form(method="POST")
-                label(for="newVal") New food
-                input(type="text" name="newVal" required)
+                label(for="newName") New food
+                input(type="text" name="newName" required)
+                label(for="newType") Type
+                input(type="text" name="newType" required)
+                label(for="newQuantity") Quantity
+                input(type="text" name="newQuantity" required)
                 input(type="submit" value="Submit")

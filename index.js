@@ -45,7 +45,7 @@ app.get('/update-cobj', async (req, res) => {
     try {
         const resp = await axios.get(contacts, { headers });
         const data = resp.data.results;
-        res.render('contacts', { title: 'Update Custom Object Form | Integrating With HubSpot I Practicum', data });      
+        res.render('updates', { title: 'Update Custom Object Form | Integrating With HubSpot I Practicum', data });      
     } catch (error) {
         console.error(error);
     }
@@ -57,19 +57,20 @@ app.get('/update-cobj', async (req, res) => {
 app.post('/update-cobj', async (req, res) => {
     const update = {
         properties: {
-            "favorite_book": req.body.newVal
+            "name": req.body.newName,
+            "type": req.body.newType,
+            "quantity": req.body.newQuantity
         }
     }
 
-    const email = req.query.email;
-    const updateContact = `https://api.hubapi.com/crm/v3/objects/contacts/${email}?idProperty=email`;
+    const updateFood = `https://api.hubapi.com/crm/v3/schemas/2-131616950`;
     const headers = {
         Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
         'Content-Type': 'application/json'
     };
 
     try { 
-        await axios.patch(updateContact, update, { headers } );
+        await axios.patch(updateFood, update, { headers } );
         res.redirect('back');
     } catch(err) {
         console.error(err);
