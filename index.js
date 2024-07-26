@@ -27,7 +27,7 @@ app.get('/', async (req, res) => {
         const data = resp.data.results;
         // return res.json(data);
 
-        res.render('contacts', { title: 'Contacts | HubSpot APIs', data });
+        res.render('homepage', { title: 'Food | HubSpot APIs', data });
     } catch (error) {
         console.error(error);
     }
@@ -72,10 +72,10 @@ app.post('/update-cobj', async (req, res) => {
     };
 
     try { 
-        const response = await axios.patch(updateFood, update, { headers });
+        const response = await axios.post(updateFood, update, { headers });
         console.log('Update successful:', response.data);
 
-        res.redirect('back');
+        res.redirect('/');
     } catch(err) {
         console.error(err);
     }
