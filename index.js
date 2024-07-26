@@ -16,16 +16,18 @@ const PRIVATE_APP_ACCESS = process.env.PRIVATE_APP_ACCESS;
 
 app.get('/', async (req, res) => {
 
-    const contacts = 'https://api.hubspot.com/crm/v3/objects/contacts';
+    const food = 'https://api.hubapi.com/crm/v3/objects/2-131616950?properties=name%2Ctype%2Cquantity&archived=false';
     const headers = {
         Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
         'Content-Type': 'application/json'
     }
 
     try {
-        const resp = await axios.get(contacts, { headers });
+        const resp = await axios.get(food, { headers });
         const data = resp.data.results;
-        res.render('contacts', { title: 'Contacts | HubSpot APIs', data });      
+        // return res.json(data);
+
+        res.render('contacts', { title: 'Contacts | HubSpot APIs', data });
     } catch (error) {
         console.error(error);
     }
@@ -36,14 +38,14 @@ app.get('/', async (req, res) => {
 
 app.get('/update-cobj', async (req, res) => {
 
-    const contacts = 'https://api.hubspot.com/crm/v3/objects/contacts';
+    const food = 'https://api.hubapi.com/crm/v3/objects/2-131616950';
     const headers = {
         Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
         'Content-Type': 'application/json'
     }
 
     try {
-        const resp = await axios.get(contacts, { headers });
+        const resp = await axios.get(food, { headers });
         const data = resp.data.results;
         res.render('updates', { title: 'Update Custom Object Form | Integrating With HubSpot I Practicum', data });      
     } catch (error) {
@@ -63,14 +65,16 @@ app.post('/update-cobj', async (req, res) => {
         }
     }
 
-    const updateFood = `https://api.hubapi.com/crm/v3/schemas/2-131616950`;
+    const updateFood = `https://api.hubapi.com/crm/v3/objects/2-131616950`;
     const headers = {
         Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
         'Content-Type': 'application/json'
     };
 
     try { 
-        await axios.patch(updateFood, update, { headers } );
+        const response = await axios.patch(updateFood, update, { headers });
+        console.log('Update successful:', response.data);
+
         res.redirect('back');
     } catch(err) {
         console.error(err);

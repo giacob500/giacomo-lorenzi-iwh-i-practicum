@@ -9,7 +9,7 @@ html
     body    
         h1 Contacts
         .cards 
-            each contact in data
+            each food in data
                 .card 
-                    h2.card__name #{contact.properties.firstname}  #{contact.properties.lastname}
-                    p.card__email #{contact.properties.email}
+                    h2.card__name #{food.properties.name}  #{food.properties.type}
+                    p.card__email #{food.properties.quantity}
